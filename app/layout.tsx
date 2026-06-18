@@ -16,6 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "모아쌤 관리자",
   description: "모아쌤 서비스 운영 및 관리를 위한 관리자 페이지",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
