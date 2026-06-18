@@ -1,4 +1,4 @@
-export default {
+const config = {
   parserPreset: {
     parserOpts: {
       headerPattern: /^([a-z]+):\s(.+?)\s\(#(\d+)\)$/,
@@ -12,3 +12,5 @@ export default {
     'subject-empty': [2, 'never'],
   },
 };
+
+export default config;
