@@ -1,14 +1,49 @@
 @import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary-900: #5e262a;
+  --color-primary-800: #8a393f;
+  --color-primary-700: #b14d55;
+  --color-primary-600: #d4636d;
+  --color-primary-500: #ff7b84;
+  --color-primary-400: #f7969d;
+  --color-primary-300: #f9afb5;
+  --color-primary-200: #fbc9cd;
+  --color-primary-100: #ffeaee;
+  --color-primary-50: #fff3f4;
+
+  --color-gray-950: #1c1c1e;
+  --color-gray-900: #232326;
+  --color-gray-800: #2c2c2e;
+  --color-gray-700: #3f3f46;
+  --color-gray-600: #52525b;
+  --color-gray-500: #71717a;
+  --color-gray-400: #a1a1aa;
+  --color-gray-300: #d4d4d8;
+  --color-gray-200: #e4e4e7;
+  --color-gray-100: #f4f4f5;
+  --color-gray-50: #fafafa;
+
+  --color-success-700: #027a48;
+  --color-success-500: #12b76a;
+  --color-success-50: #ecfdf3;
+
+  --color-danger-700: #b42318;
+  --color-danger-500: #f04438;
+  --color-danger-50: #fef3f2;
+
+  --color-warning-700: #b54708;
+  --color-warning-500: #f79009;
+  --color-warning-50: #fffaeb;
+
+  --color-info-700: #175cd3;
+  --color-info-500: #2e90fa;
+  --color-info-50: #eff8ff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-pretendard);
+:root {
+  --background: var(--color-gray-50);
+  --foreground: var(--color-gray-800);
 }
 
 html {
@@ -18,4 +53,14 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
