@@ -1,25 +1,22 @@
-import axios from "axios";
+import axios from 'axios';
 
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 10000,
   withCredentials: true,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 export function refreshAccessToken(): Promise<void> {
   return (async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/admin/auth/refresh`,
-      {
-        method: "POST",
-        credentials: "include",
-        signal: AbortSignal.timeout(10000),
-      },
-    );
-    if (!res.ok) throw new Error("refresh failed");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/admin/auth/refresh`, {
+      method: 'POST',
+      credentials: 'include',
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!res.ok) throw new Error('refresh failed');
   })();
 }
 
@@ -42,8 +39,8 @@ apiClient.interceptors.response.use(
       await refreshAccessToken();
       return apiClient(originalRequest);
     } catch (refreshError) {
-      if (typeof window !== "undefined") {
-        window.location.href = "/login";
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login';
       }
       return Promise.reject(refreshError);
     }
