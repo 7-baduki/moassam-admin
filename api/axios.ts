@@ -9,15 +9,24 @@ const apiClient = axios.create({
   },
 });
 
+let refreshPromise: Promise<void> | null = null;
+
 export function refreshAccessToken(): Promise<void> {
-  return (async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/admin/auth/refresh`, {
-      method: 'POST',
-      credentials: 'include',
-      signal: AbortSignal.timeout(10000),
-    });
-    if (!res.ok) throw new Error('refresh failed');
-  })();
+  if (!refreshPromise) {
+    refreshPromise = (async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/admin/auth/refresh`, {
+          method: 'POST',
+          credentials: 'include',
+          signal: AbortSignal.timeout(10000),
+        });
+        if (!res.ok) throw new Error('refresh failed');
+      } finally {
+        refreshPromise = null;
+      }
+    })();
+  }
+  return refreshPromise;
 }
 
 apiClient.interceptors.response.use(
@@ -28,8 +37,9 @@ apiClient.interceptors.response.use(
     }
 
     const originalRequest = error.config;
+    const isAuthRequest = originalRequest.url?.includes('/api/v1/admin/auth/');
 
-    if (error.response?.status !== 401 || originalRequest._retry) {
+    if (error.response?.status !== 401 || originalRequest._retry || isAuthRequest) {
       return Promise.reject(error);
     }
 
