@@ -22,9 +22,12 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     logout(undefined, {
-      onSettled: () => {
+      onSuccess: () => {
         router.replace('/login');
         router.refresh();
+      },
+      onError: () => {
+        window.alert('로그아웃에 실패했습니다. 다시 시도해 주세요.');
       },
     });
   };
