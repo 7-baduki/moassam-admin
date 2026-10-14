@@ -47,6 +47,20 @@ interface SearchParams {
   page: number;
 }
 
+const PERIOD_DESCRIPTIONS: Record<Exclude<PeriodPreset, 'CUSTOM'>, string> = {
+  TODAY: '오늘',
+  WEEK: '최근 7일',
+  MONTH: '최근 30일',
+  ALL: '전체 기간',
+};
+
+function getPeriodDescription(preset: PeriodPreset, startDate?: string, endDate?: string) {
+  if (preset !== 'CUSTOM') return PERIOD_DESCRIPTIONS[preset];
+  if (!startDate && !endDate) return PERIOD_DESCRIPTIONS.ALL;
+  const format = (date?: string) => date?.slice(5).replace('-', '.') ?? '';
+  return `${format(startDate)} ~ ${format(endDate)}`.trim();
+}
+
 function getPresetRange(preset: Exclude<PeriodPreset, 'CUSTOM'>) {
   if (preset === 'ALL') {
     return { startDate: undefined, endDate: undefined };
@@ -158,7 +172,9 @@ export default function UsersPage() {
         <StatCard
           label="기간 가입자"
           value={data ? data.periodUserCount.toLocaleString() : '-'}
+          description={getPeriodDescription(preset, searchParams.startDate, searchParams.endDate)}
           icon={UserPlus}
+          isUpdating={isPlaceholderData}
         />
       </section>
 
