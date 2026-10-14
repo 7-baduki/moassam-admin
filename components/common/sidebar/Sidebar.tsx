@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { FileText, LogOut, type LucideIcon } from 'lucide-react';
+import { FileText, LogOut, Users, type LucideIcon } from 'lucide-react';
 import { useLogoutMutation } from '@/hooks/queries/auth/useLogout';
 import { cn } from '@/utils/cn';
 
@@ -13,7 +13,10 @@ interface NavItem {
   icon: LucideIcon;
 }
 
-const NAV_ITEMS: NavItem[] = [{ label: '게시글 관리', href: '/posts', icon: FileText }];
+const NAV_ITEMS: NavItem[] = [
+  { label: '회원 관리', href: '/users', icon: Users },
+  { label: '게시글 관리', href: '/posts', icon: FileText },
+];
 
 export default function Sidebar() {
   const pathname = usePathname();
