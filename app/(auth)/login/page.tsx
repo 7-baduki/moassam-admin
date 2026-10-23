@@ -4,6 +4,7 @@ import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/common/button/Button';
 import Input from '@/components/common/input/Input';
+import { DEFAULT_PATH } from '@/constants/routes';
 import { useLoginMutation } from '@/hooks/queries/auth/useLogin';
 import { getErrorMessage } from '@/utils/getErrorMessage';
 
@@ -23,7 +24,7 @@ export default function LoginPage() {
       { username, password },
       {
         onSuccess: () => {
-          router.replace('/posts');
+          router.replace(DEFAULT_PATH);
           router.refresh();
         },
         onError: (err) => setError(getErrorMessage(err)),

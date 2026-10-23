@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { DEFAULT_PATH } from '@/constants/routes';
 
 const ACCESS_TOKEN_COOKIE = 'adminAccessToken';
 const LOGIN_PATH = '/login';
-const DEFAULT_PATH = '/posts';
 
 export function middleware(request: NextRequest) {
   const isAuthenticated = request.cookies.has(ACCESS_TOKEN_COOKIE);
