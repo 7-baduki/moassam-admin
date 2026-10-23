@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
+import { DEFAULT_PATH } from '@/constants/routes';
 
 export default function Home() {
-  redirect('/posts');
+  redirect(DEFAULT_PATH);
 }
