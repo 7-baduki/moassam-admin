@@ -28,19 +28,3 @@ export interface UsersResponse {
     hasNext: boolean;
   };
 }
-
-export interface DailySignup {
-  date: string;
-  count: number;
-  cumulativeCount: number;
-}
-
-export interface UserStatistics {
-  totalUserCount: number;
-  withdrawnUserCount: number;
-  recentSignupCount: number;
-  previousSignupCount: number;
-  providerCounts: { provider: string; count: number }[];
-  dailySignups: DailySignup[];
-  recentUsers: User[];
-}
