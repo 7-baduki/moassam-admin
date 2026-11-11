@@ -468,10 +468,12 @@ export default function DashboardPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="mt-auto rounded-xl bg-gray-50 px-4 py-3 text-xs leading-relaxed text-gray-500">
-                  활성 사용자 {formatPercent(browseOnlyPercent)}는 아무 기능도 쓰지 않고 둘러보기만
-                  했습니다.
-                </p>
+                {browseOnlyPercent > 0 && (
+                  <p className="mt-auto rounded-xl bg-gray-50 px-4 py-3 text-xs leading-relaxed text-gray-500">
+                    활성 사용자 {formatPercent(browseOnlyPercent)}는 아무 기능도 쓰지 않고
+                    둘러보기만 했습니다.
+                  </p>
+                )}
               </>
             )}
           </Card>
