@@ -80,6 +80,14 @@ function getCoveredAverage(days: DailyActiveUsers[]) {
   return counts.reduce((sum, count) => sum + count, 0) / counts.length;
 }
 
+// 화면에 보이는 반올림된 평균과 비교해야 "0명, 평균보다 적음" 같은 어긋난 문구가 생기지 않습니다.
+function getYesterdayComparison(yesterday: number | null, average: number | null) {
+  if (yesterday === null || average === null) return undefined;
+  const roundedAverage = Math.round(average);
+  if (yesterday === roundedAverage) return '평균과 같음';
+  return `평균보다 ${yesterday > roundedAverage ? '많음' : '적음'}`;
+}
+
 function isCollecting(availability: Availability) {
   return availability.status === 'COLLECTING';
 }
@@ -422,10 +430,7 @@ export default function DashboardPage() {
                   {
                     label: '어제',
                     value: yesterdayDau === null ? '-' : `${yesterdayDau.toLocaleString()}명`,
-                    extra:
-                      yesterdayDau === null || averageDau === null
-                        ? undefined
-                        : `평균보다 ${yesterdayDau >= averageDau ? '많음' : '적음'}`,
+                    extra: getYesterdayComparison(yesterdayDau, averageDau),
                   },
                 ]}
               />
